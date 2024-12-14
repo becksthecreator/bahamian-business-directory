@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Business</title>
+</head>
+<body>
+    <h1>Add a Business</h1>
+    <form id="businessForm">
+        <label for="name">Business Name:</label><br>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="location">Location:</label><br>
+        <input type="text" id="location" name="location" required><br><br>
+
+        <label for="category">Category:</label><br>
+        <input type="text" id="category" name="category" required><br><br>
+
+        <button type="submit">Add Business</button>
+    </form>
+
+    <script>
+        // Handle form submission
+        const form = document.getElementById('businessForm');
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const data = {
+                name: form.name.value,
+                location: form.location.value,
+                category: form.category.value,
+            };
+
+            const response = await fetch('/businesses', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+            });
+
+            if (response.ok) {
+                alert('Business added successfully!');
+                form.reset();
+            } else {
+                alert('Failed to add business.');
+            }
+        });
+    </script>
+</body>
+</html>
